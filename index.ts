@@ -1,7 +1,7 @@
 import { isSamePlayer, Player } from './types/player';
-import { advantage, deuce, fifteen, FortyData, game, Point, PointsData, Score, thirty } from './types/score';
-// import { none, Option, some, match as matchOpt } from 'fp-ts/Option';
-// import { pipe } from 'fp-ts/lib/function';
+import { advantage, deuce, fifteen, forty, FortyData, game, Point, PointsData, Score, thirty } from './types/score';
+import { none, Option, some, match as matchOpt } from 'fp-ts/Option';
+import { pipe } from 'fp-ts/lib/function';
 
 // -------- Tooling functions --------- //
 
@@ -61,7 +61,16 @@ export const scoreWhenAdvantage = (
 export const scoreWhenForty = (
   currentForty: FortyData,
   winner: Player
-): Score => game(winner);
+): Score => {
+  if (isSamePlayer(currentForty.player, winner)) return game(winner);
+  return pipe(
+    incrementPoint(currentForty.otherPoint),
+    matchOpt(
+      () => deuce(),
+      p => forty(currentForty.player, p) as Score
+    )
+  );
+};
 
 export const incrementPoint = (point: Point): Option<Point> => {
   switch (point.kind) {

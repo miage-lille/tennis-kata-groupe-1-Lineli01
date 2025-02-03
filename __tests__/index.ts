@@ -85,10 +85,10 @@ describe('Tests for transition functions', () => {
       })
     );
   });
-  // test('Given player at 40 and other at 15 when other wins, score is 40 - 15', () => {
+  // test('Given player at 40 and other at 15 when other wins, score is 40 - 30', () => {
   //   console.log('To fill when we will know how represent Forty');
   // });
-  test('Given player at 40 and other at 15 when other wins, score is 40 - 15', () => {
+  test('Given player at 40 and other at 15 when other wins, score is 40 - 30', () => {
     fc.assert(
       fc.property(G.getForty(), G.getPlayer(), ({ fortyData }, winner) => {
         // Other player wins
